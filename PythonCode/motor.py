@@ -23,10 +23,13 @@ class MyApp(QtWidgets.QMainWindow):
         self.ui.radioButton_tersyon.clicked.connect(self.motorControl)
 
     def connect(self): 
-        comInfo = self.ui.comboBox.currentText()
-        self.ui.label_com.setText(comInfo)
-        self.serial_connection = serial.Serial(port=self.ui.comboBox.currentText(), baudrate=115200, timeout=.1)
-        self.com_flag = True
+        try: 
+            comInfo = self.ui.comboBox.currentText()
+            self.ui.label_com.setText(comInfo)
+            self.serial_connection = serial.Serial(port=self.ui.comboBox.currentText(), baudrate=115200, timeout=.1)
+            self.com_flag = True
+        except: 
+            self.ui.info.setText("COM PORTA BAĞLANILAMIYOR.")
 
     def motorControl(self): 
         if self.com_flag: 
